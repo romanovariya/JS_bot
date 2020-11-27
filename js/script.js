@@ -6,32 +6,32 @@ function getRandomInt() {
     return Math.floor(Math.random() * (max - min + 1 )) + min; //получение случайного числа в заданном интервале
 }
 
-const botNum = getRandomInt();
+// const botNum = getRandomInt();
 
-function startBot() { 
+function startBot(number) { 
     let userNum = prompt('Угадай число от 1 до 100');
 
-    function guessNum() {
+    return function guessNum() {
         if ( userNum === null) {
             alert("Игра окончена");
         } else {
             if (Number.isInteger(+userNum) !== true) {
                 userNum = prompt("Введи число!");
                 return(guessNum());
-            } else if (+userNum > botNum) {
+            } else if (+userNum > number) {
                 userNum = prompt("Загаданное число меньше");
                 return(guessNum());
-            } else if (+userNum < botNum) {
+            } else if (+userNum < number) {
                 userNum = prompt("Загаданное число больше");
                 return(guessNum());
-            } else if (+userNum === botNum) {
+            } else if (+userNum === number) {
                 alert("Поздравляю, Вы угадали!");
             } 
         }
     
-    }
-    guessNum();
+    };
 }
-startBot();
+const bot = startBot(getRandomInt());
+bot();
 
     
