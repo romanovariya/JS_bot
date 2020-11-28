@@ -9,13 +9,20 @@ function getRandomInt() {
 function startBot(number, attempt) { 
     let res = true;
     let userNum;
-    if (res === true) {
-        userNum = prompt('Угадай число от 1 до 100');
-    }
+    const restart = attempt;
+    
     return function guessNum() {
+        if (res === true && attempt === restart) {
+            userNum = prompt('Угадай число от 1 до 100');
+        } else if (res === true && attempt === 0) {
+            attempt = restart;
+            userNum = prompt('Угадай число от 1 до 100');
+        }
         if (attempt === 1) {
-            attempt--;
+            // attempt--;
             res = confirm("Попытки закончились, хотите сыграть еще?");
+            attempt = restart;
+            return(guessNum());
         }
         if ( userNum === null || res === false) {
             alert("Игра окончена");
@@ -33,6 +40,8 @@ function startBot(number, attempt) {
                 return(guessNum());
             } else if (+userNum === number && attempt > 0) {
                 res = confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?");
+                attempt = restart;
+                return(guessNum());
             }
         }
     };
